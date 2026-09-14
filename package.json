@@ -1,0 +1,13 @@
+{
+  "name": "klas-prom",
+  "version": "1.0.0",
+  "description": "Сайт ООО «КЛАС» (комплексное промышленное снабжение)",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve -l 3000 .",
+    "preview": "npx serve -l 3000 ."
+  },
+  "keywords": ["klas-prom", "landing"],
+  "author": "",
+  "license": "ISC"
+}
