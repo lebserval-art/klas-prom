@@ -81,6 +81,27 @@
   #toast { transition: transform 0.3s ease, opacity 0.3s ease; }
   #toast.hidden-toast { transform: translateY(12px); opacity: 0; pointer-events: none; }
 
+  /* Partners ticker: seamless infinite scroll (two identical sets side by side) */
+  .ticker-viewport {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    animation: ticker-scroll 70s linear infinite;
+  }
+  .ticker-viewport:hover .ticker-track { animation-play-state: paused; }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: #F1F5F9; }
   ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 8px; }
@@ -116,7 +137,6 @@
       <nav class="hidden lg:flex items-center gap-8">
         <a href="#catalog" class="text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white transition-colors">Номенклатура</a>
         <a href="#partners" class="text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white transition-colors">Партнеры</a>
-        <a href="#advantages" class="text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white transition-colors">Специфика закрытия</a>
         <a href="#mts" class="text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white transition-colors">Преимущества</a>
         <a href="#requisites" class="text-xs font-semibold uppercase tracking-wider text-slate-300 hover:text-white transition-colors">Реквизиты</a>
       </nav>
@@ -151,7 +171,6 @@
     <nav class="flex flex-col gap-1">
       <a href="#catalog" class="nav-mobile-link py-3 text-sm font-semibold uppercase tracking-wider text-slate-300 border-b border-white/5">Номенклатура</a>
       <a href="#partners" class="nav-mobile-link py-3 text-sm font-semibold uppercase tracking-wider text-slate-300 border-b border-white/5">Партнеры</a>
-      <a href="#advantages" class="nav-mobile-link py-3 text-sm font-semibold uppercase tracking-wider text-slate-300 border-b border-white/5">Специфика закрытия</a>
       <a href="#mts" class="nav-mobile-link py-3 text-sm font-semibold uppercase tracking-wider text-slate-300 border-b border-white/5">Преимущества</a>
       <a href="#requisites" class="nav-mobile-link py-3 text-sm font-semibold uppercase tracking-wider text-slate-300">Реквизиты</a>
     </nav>
@@ -249,28 +268,135 @@
       <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-ink">Поставляем продукцию на ключевые объекты лидеров промышленности</h2>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
-        <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">ГПП</div>
-        <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Газпром переработка»</div>
-        <div class="text-xs text-slate-500">Переработка газа и конденсата</div>
-      </div>
-      <div class="bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
-        <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">ГДО</div>
-        <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Газпром добыча Оренбург»</div>
-        <div class="text-xs text-slate-500">Добыча и транспортировка</div>
-      </div>
-      <div class="bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
-        <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">СЗ</div>
-        <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">НК «Сладковско-Заречное»</div>
-        <div class="text-xs text-slate-500">Нефтедобывающий сектор</div>
-      </div>
-      <div class="bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
-        <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">РС</div>
-        <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Руссоль»</div>
-        <div class="text-xs text-slate-500">Крупнейший соледобывающий холдинг</div>
+    <div class="ticker-viewport">
+      <div class="ticker-track">
+        <!-- Set 1 -->
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">ГПП</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Газпром переработка»</div>
+          <div class="text-xs text-slate-500">Переработка газа и конденсата</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">ГДО</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Газпром добыча Оренбург»</div>
+          <div class="text-xs text-slate-500">Добыча и транспортировка</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">СЗ</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">НК «Сладковско-Заречное»</div>
+          <div class="text-xs text-slate-500">Нефтедобывающий сектор</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">РС</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Руссоль»</div>
+          <div class="text-xs text-slate-500">Крупнейший соледобывающий холдинг</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Чайковский</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Екатеринбург</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">НОВАТЭК – Усть-Луга</div>
+          <div class="text-xs text-slate-500">Переработка и перевалка СПГ</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром добыча Уренгой</div>
+          <div class="text-xs text-slate-500">Добыча газа и конденсата</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром добыча Надым</div>
+          <div class="text-xs text-slate-500">Добыча газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Саратов</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Ставрополь</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Нижний Новгород</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром Большая Лахта</div>
+          <div class="text-xs text-slate-500">Административный комплекс</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Грозный</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+
+        <!-- Set 2 (duplicate for seamless loop, hidden from assistive tech) -->
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors" aria-hidden="true">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">ГПП</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Газпром переработка»</div>
+          <div class="text-xs text-slate-500">Переработка газа и конденсата</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors" aria-hidden="true">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">ГДО</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Газпром добыча Оренбург»</div>
+          <div class="text-xs text-slate-500">Добыча и транспортировка</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors" aria-hidden="true">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">СЗ</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">НК «Сладковско-Заречное»</div>
+          <div class="text-xs text-slate-500">Нефтедобывающий сектор</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors" aria-hidden="true">
+          <div class="w-11 h-11 rounded-md bg-ink text-white flex items-center justify-center font-heading font-bold text-sm mb-4">РС</div>
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">ООО «Руссоль»</div>
+          <div class="text-xs text-slate-500">Крупнейший соледобывающий холдинг</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Чайковский</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Екатеринбург</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">НОВАТЭК – Усть-Луга</div>
+          <div class="text-xs text-slate-500">Переработка и перевалка СПГ</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром добыча Уренгой</div>
+          <div class="text-xs text-slate-500">Добыча газа и конденсата</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром добыча Надым</div>
+          <div class="text-xs text-slate-500">Добыча газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Саратов</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Ставрополь</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Нижний Новгород</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром Большая Лахта</div>
+          <div class="text-xs text-slate-500">Административный комплекс</div>
+        </div>
+        <div class="ticker-card shrink-0 w-72 bg-white border border-border rounded-lg p-6 shadow-card hover:border-accent/40 transition-colors flex flex-col justify-center" aria-hidden="true">
+          <div class="font-heading font-bold text-sm text-ink leading-snug mb-1">Газпром трансгаз Грозный</div>
+          <div class="text-xs text-slate-500">Транспортировка газа</div>
+        </div>
       </div>
     </div>
+
+    <p class="text-slate-500 leading-relaxed mt-6 max-w-3xl">Работаем с крупнейшими промышленными предприятиями и дистрибьюторами по всей России. Закупаем и доставляем — от Калининграда до Владивостока, любую номенклатуру, в любой объём.</p>
 
     <div class="mt-5 bg-ink rounded-lg px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-4">
@@ -292,7 +418,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-2xl mb-12">
       <div class="text-[11px] font-bold uppercase tracking-widest text-accent-dark mb-3">Номенклатура</div>
-      <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-ink mb-3">Шесть направлений комплексного снабжения</h2>
+      <h2 class="font-heading font-extrabold text-2xl md:text-3xl text-ink mb-3">Направления комплексного снабжения</h2>
       <p class="text-slate-500 leading-relaxed">Формируем сборную спецификацию из любых сочетаний позиций ниже — единым договором, единой поставкой.</p>
     </div>
 
@@ -437,6 +563,8 @@
         </div>
       </div>
     </div>
+
+    <p class="text-slate-500 leading-relaxed mt-8 max-w-3xl">Список открытый — от инструмента и оргтехники до инертных материалов, асфальта и щебня. Если нужной позиции нет в перечне — пришлите её отдельно, подберём.</p>
   </div>
 </section>
 
@@ -517,7 +645,7 @@
 
         <div class="sm:col-span-2 border-t border-border pt-5 grid sm:grid-cols-2 gap-x-8 gap-y-5">
           <div><div class="text-[11px] uppercase tracking-wider text-slate-400 mb-1">Телефон</div><div class="font-semibold text-ink">+7 (3532) 32-30-82</div></div>
-          <div><div class="text-[11px] uppercase tracking-wider text-slate-400 mb-1">Email отдела закупок</div><div class="font-semibold text-ink">snab@klas-prom.ru</div></div>
+          <div><div class="text-[11px] uppercase tracking-wider text-slate-400 mb-1">Email отдела закупок</div><div class="font-semibold text-ink">klas424050@gmail.com</div></div>
         </div>
       </div>
 
@@ -552,7 +680,7 @@
           </div>
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-md bg-sky-50 text-accent flex items-center justify-center shrink-0"><i data-lucide="mail" class="w-4 h-4"></i></div>
-            <a href="mailto:snab@klas-prom.ru" class="text-sm font-semibold text-ink hover:text-accent">snab@klas-prom.ru</a>
+            <a href="mailto:klas424050@gmail.com" class="text-sm font-semibold text-ink hover:text-accent">klas424050@gmail.com</a>
           </div>
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-md bg-sky-50 text-accent flex items-center justify-center shrink-0"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
@@ -618,7 +746,7 @@
         <div class="text-white text-xs font-bold uppercase tracking-wider mb-4">Контакты</div>
         <ul class="space-y-2.5 text-sm">
           <li><a href="tel:+73532323082" class="hover:text-white transition-colors">+7 (3532) 32-30-82</a></li>
-          <li><a href="mailto:snab@klas-prom.ru" class="hover:text-white transition-colors">snab@klas-prom.ru</a></li>
+          <li><a href="mailto:klas424050@gmail.com" class="hover:text-white transition-colors">klas424050@gmail.com</a></li>
           <li>г. Оренбург, ул. Лесозащитная, 20, офис 105</li>
         </ul>
       </div>
@@ -837,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'Юридический адрес: 460036, Оренбургская обл., г. Оренбург, ул. Лесозащитная, д. 20, офис 105\n' +
     'Почтовый адрес: 460040, г. Оренбург, а/я № 11\n' +
     'Телефон: +7 (3532) 32-30-82\n' +
-    'Email отдела закупок: snab@klas-prom.ru';
+    'Email отдела закупок: klas424050@gmail.com';
 
   var copyBtn = document.getElementById('copyReqBtn');
   copyBtn.addEventListener('click', function () {
